@@ -1,0 +1,20 @@
+**Movie night setup - about 5 minutes, one time**
+
+[[tailscale]]
+**1. Connect.** Install Tailscale from https://tailscale.com/download and sign in with Google, Microsoft, Apple or GitHub. Then open this link and press Accept: {INVITE_LINK}
+
+[[/tailscale]]
+**Install the player.** It is free and called Jellyfin Media Player.
+Windows: press the Windows key, type PowerShell, open it, paste this line and press Enter:
+`winget install Jellyfin.JellyfinMediaPlayer`
+Mac, Linux, or winget does not work: download it from https://github.com/jellyfin/jellyfin-desktop/releases/latest (pick the file for your computer).
+
+**Log in.** Open Jellyfin Media Player. When it asks for a server, type:
+`{URL}`
+Username: `{USER}`
+Password: `{PASSWORD}`
+Leave every setting alone. You are done.
+
+**On movie night:** join the call, open the player, wait until I say the group is ready, then click the people icon at the top right and press my group's name. When I press play, the movie starts for you by itself. Anyone's pause pauses everyone, so only pause for a real break and say so on voice. Do not drag the seek bar.
+
+No smart TVs for synced nights yet. Use a laptop or PC. Stuck? Screenshot it and send it to me.
