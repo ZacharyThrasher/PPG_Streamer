@@ -27,7 +27,7 @@ If the player will not install on your computer, you can open the same address i
 | Player or page cannot reach the server | Open the Tailscale app and make sure it says Connected. Then reopen the player. |
 | Step 2 says the invite is used or expired | Ask Zach for a new link. Each one works once and expires after 30 days. |
 | Video is choppy | Tell Zach. It may be using a slow route and he can check. Close other heavy downloads or streams. |
-| Smart TV or streaming box | Many cannot run Tailscale. Use a laptop/phone and cast or plug in by HDMI, or tell Zach what device you have. |
+| Smart TV or streaming box | Synced nights do not work on TVs yet. Use a laptop, or plug a laptop into the TV with an HDMI cable. |
 
 Still stuck? Send Zach a screenshot of the Tailscale app and the error page.
 
