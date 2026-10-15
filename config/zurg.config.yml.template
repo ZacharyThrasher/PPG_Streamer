@@ -1,0 +1,36 @@
+zurg: v1
+token: {{TOKEN}}
+
+# Listen on this PC only. The debrid library is never exposed to the network;
+# Jellyfin is the only thing that reads it.
+host: "127.0.0.1"
+port: 9999
+
+mount_path: "{{MOUNT}}"
+
+# zurg runs and supervises rclone for us (WinFsp mount). Windows needs --links.
+rclone_enabled: true
+rclone_binary: bin\rclone.exe
+ffprobe_binary: bin\ffprobe.exe
+rclone_extra_args:
+  - "--links"
+
+check_for_changes_every_secs: 10
+enable_repair: true
+
+# When the debrid library changes, ask Jellyfin to scan (waits briefly so a
+# burst of changes becomes one scan).
+on_library_update: '{{LIBRARY_HOOK}}'
+
+directories:
+  shows:
+    group: media
+    group_order: 10
+    filters:
+      - has_episodes: true
+  movies:
+    group: media
+    group_order: 20
+    only_show_the_biggest_file: true
+    filters:
+      - regex: /.*/

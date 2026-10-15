@@ -1,0 +1,25 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint PowerShell (5.1 and 7 syntax)
+        shell: pwsh
+        run: ./tests/lint.ps1
+
+  jellyfin-bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start a fresh Jellyfin 12.2
+        run: |
+          mkdir -p "$RUNNER_TEMP/media/movies" "$RUNNER_TEMP/media/shows"
+          docker run -d --name jellyfin -p 8096:8096 -v "$RUNNER_TEMP/media:/media" jellyfin/jellyfin:12.2
+      - name: Bootstrap twice and verify every setting through the API
+        shell: pwsh
+        run: ./tests/test-bootstrap.ps1 -Url http://localhost:8096 -LibraryRoot /media
