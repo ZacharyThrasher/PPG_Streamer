@@ -1,0 +1,8 @@
+# Local settings (copy of config/ppg.config.example.psd1)
+config/ppg.config.psd1
+
+# Never commit secrets or local state
+*.token
+state.json
+zurg/
+.env
