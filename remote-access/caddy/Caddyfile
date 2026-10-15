@@ -1,0 +1,27 @@
+# Caddy reverse proxy for Jellyfin (the "just a URL" option).
+# Read remote-access/caddy/README.md first. This exposes your PC to the internet.
+#
+# Configure with environment variables so you never edit this file:
+#   JELLYFIN_DOMAIN     required, e.g. movies.example.com or myname.duckdns.org
+#   JELLYFIN_UPSTREAM   optional, defaults to 127.0.0.1:8096
+
+{$JELLYFIN_DOMAIN} {
+	# No "encode" block on purpose: video is already compressed, and Jellyfin
+	# compresses its own API responses.
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	# Jellyfin only uploads small things (profile images, subtitles).
+	request_body {
+		max_size 50MB
+	}
+
+	reverse_proxy {$JELLYFIN_UPSTREAM:127.0.0.1:8096} {
+		# Jellyfin streams long-lived responses; do not buffer them.
+		flush_interval -1
+	}
+}
