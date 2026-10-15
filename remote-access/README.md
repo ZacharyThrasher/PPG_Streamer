@@ -8,7 +8,7 @@ This folder covers only the network path (friend -> your PC). Installing Jellyfi
 
 | | Tailscale (default) | Caddy reverse proxy (alternative) |
 |---|---|---|
-| What friends do | Install the Tailscale app, sign in, click your invite link, open a bookmark. One time, about 5 minutes. | Open a link. Nothing else. |
+| What friends do | Install the Tailscale app, sign in, click your invite link, then type the address into the Jellyfin player. One time, about 5 minutes. | Open a link. Nothing else. |
 | What you do | One script, one invite link per friend. No router changes. | Domain or free DuckDNS name, router port-forward, firewall rule, keep it patched. |
 | Exposure | Private. Only people you invited can even see the server. | Jellyfin is on the public internet. Bots will find it. |
 | Works behind CGNAT / bad ISP routers | Yes | No (needs an inbound port) |
@@ -30,17 +30,17 @@ Host (you), once:
 2. In an admin PowerShell: `powershell -ExecutionPolicy Bypass -File remote-access\tailscale\setup-host.ps1`
 3. In the Tailscale admin console: disable key expiry for the PC, then Share it and copy an invite link per friend. Details in [tailscale/README.md](tailscale/README.md).
 4. Create a Jellyfin user per friend.
-5. Send each friend the invite link, the URL the script printed, and [FRIEND-GUIDE.md](FRIEND-GUIDE.md).
+5. Create each friend's account and invite message with `friends/New-FriendAccount.ps1` (pass it the Tailscale invite link and the URL the script printed).
 
 Before each movie night: `remote-access\tailscale\check-access.ps1` (optional, 5 seconds).
 
-Friends: follow [FRIEND-GUIDE.md](FRIEND-GUIDE.md).
+Friends: [FRIEND-GUIDE.md](FRIEND-GUIDE.md) covers the Tailscale part and hands off to the main guide in `friends/` (player install, login, SyncPlay).
 
 ## Files
 
 | File | What it is |
 |---|---|
-| [FRIEND-GUIDE.md](FRIEND-GUIDE.md) | One page to send to friends, with a copy-paste invite message |
+| [FRIEND-GUIDE.md](FRIEND-GUIDE.md) | The Tailscale connection steps for friends, then a hand-off to `friends/FRIEND-GUIDE.md` |
 | [tailscale/README.md](tailscale/README.md) | Host walkthrough, what the script does, troubleshooting |
 | [tailscale/setup-host.ps1](tailscale/setup-host.ps1) | One-time host setup (installs, signs in, publishes Jellyfin over HTTPS on the tailnet) |
 | [tailscale/check-access.ps1](tailscale/check-access.ps1) | Read-only health check, shows if a friend is on a slow relayed path |
@@ -66,4 +66,4 @@ alternative, a Caddy reverse proxy. See [remote-access/](remote-access/README.md
 ## Open items for other parts of the repo
 
 - The Jellyfin stack should leave Jellyfin listening on port 8096 on the host (default). The scripts here assume `127.0.0.1:8096`.
-- The onboarding part should own which Jellyfin client friends use (browser vs desktop app) and the SyncPlay cheat sheet. FRIEND-GUIDE.md only gets them to the login page.
+- The `friends/` folder owns the Jellyfin client (Jellyfin Media Player), the invite message and the SyncPlay cheat sheet. FRIEND-GUIDE.md here only covers the Tailscale connection and links there.
